@@ -15,12 +15,21 @@ const deleteTodo = function(todos, todo) {
     })
     if(index != -1) todos.splice(index, 1)
 }
+
+const getThingsTodo = function(todos) {
+    return todos.filter(function(todo) {
+        return !todo.completed
+    })
+}
+
+const thingsTodo = getThingsTodo(todos, true)
+
+console.log(thingsTodo)
+
 /* 
 todos.forEach(function(note, index) {
     console.log(`${index+1}. ${note}!`)
 }) */
-console.log(todos)
-console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>")
-deleteTodo(todos, 'do the shopping')
-console.log(todos)
+
+
 

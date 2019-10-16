@@ -18,7 +18,8 @@ const todos = [{
     completed: false
 }]
 const filters = {
-    searchText: ''
+    searchText: '',
+    hideCompleted: false
 }
 
 const body = document.querySelector('body')
@@ -29,7 +30,11 @@ const todosEl = document.querySelector('#todos')
 
 const renderTodos = function(todos, filters) {
     todosEl.innerHTML = ''
-    let filteredTodos = todos.filter((todo) => todo.text.toLocaleLowerCase().includes(filters.searchText))
+    const filteredTodos = todos.filter((todo) => {
+        const searchMatched = todo.text.toLocaleLowerCase().includes(filters.searchText)
+        const hideMatched = !filters.hideCompleted || !todo.completed
+        return searchMatched && hideMatched
+    })
     filteredTodos.forEach(function(todo) {
         const p = document.createElement('p')
         p.textContent = todo.text
@@ -59,6 +64,11 @@ button.addEventListener('submit', function(e){
     })
     e.target.elements.text.value = ''
     renderTodos(todos, filters)
+})
+
+document.querySelector('#hideCompleted').addEventListener('change', function(e) {
+    filters.hideCompleted = e.target.checked
+    renderTodos(todos, filters) 
 })
 
 

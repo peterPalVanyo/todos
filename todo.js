@@ -3,10 +3,10 @@ const todos = [{
     completed: false
 },  {
     text: "Fix the kitchen furniture",
-    completed: false
+    completed: true
 },  {
     text: "Complete the code",
-    completed: true
+    completed: false
 }]
 
 const deleteTodo = function(todos, todo) {
@@ -22,9 +22,22 @@ const getThingsTodo = function(todos) {
     })
 }
 
+const sortTodos = function(todos) {
+    todos.sort(function(a, b) {
+        //or !a.completed && b.completed
+        if(a.completed < b.completed) {
+            return -1
+        } else if(a.completed > b.completed) {
+            return 1
+        } else {return 0}
+    })
+}
+
 const thingsTodo = getThingsTodo(todos, true)
 
-console.log(thingsTodo)
+sortTodos(todos)
+console.log(todos)
+
 
 /* 
 todos.forEach(function(note, index) {

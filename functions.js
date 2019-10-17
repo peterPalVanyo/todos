@@ -34,6 +34,11 @@ const generateTodoDOM = function(todo) {
     const todoText = document.createElement('span')
     const removeButton = document.createElement('button')
     removeButton.textContent = 'x'
+    removeButton.addEventListener('click', function() {
+        removeTodo(todo.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
     checkbox.setAttribute('type', 'checkbox')
     todoText.textContent = todo.text
     todoEl.appendChild(checkbox)
@@ -47,4 +52,8 @@ const generateSummaryDOM = function(todos) {
     h2.textContent = `You have ${todos.length} todos left`
     todosEl.appendChild(h2)
     return h2
+}
+
+const removeTodo = function(id) {
+    todos = todos.filter((todo) => todo.id !== id)
 }

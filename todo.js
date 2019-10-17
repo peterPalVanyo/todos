@@ -21,6 +21,7 @@ inputFilter.addEventListener('input', function(e) {
 button.addEventListener('submit', function(e){
     e.preventDefault()
     todos.push({
+        id: uuidv4(),
         text: e.target.elements.text.value,
         completed: false
     })

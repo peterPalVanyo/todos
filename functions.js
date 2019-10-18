@@ -1,24 +1,25 @@
-const getSavedTodos =  function() {
+const getSavedTodos =  () => {
     const todosJSON = localStorage.getItem('todos')
-    let todos
-    if(todosJSON != null) {
-        todos = JSON.parse(todosJSON)
-    } else todos = []
-    return todos
+
+    try {
+        return todosJSON ? JSON.parse(todosJSON) : []
+    } catch (e) {
+        return []        
+    }
 }
 
-const saveTodos = function(todos) {
+const saveTodos = (todos) => {
     localStorage.setItem('todos', JSON.stringify(todos))
 }
 
-const renderTodos = function(todos, filters) {
+const renderTodos = (todos, filters) => {
     todosEl.innerHTML = ''
     const filteredTodos = todos.filter((todo) => {
         const searchMatched = todo.text.toLocaleLowerCase().includes(filters.searchText)
         const hideMatched = !filters.hideCompleted || !todo.completed
         return searchMatched && hideMatched
     })
-    filteredTodos.forEach(function(todo) {
+    filteredTodos.forEach((todo) => {
         todosEl.appendChild(generateTodoDOM(todo)) 
     })
 
@@ -28,7 +29,7 @@ const renderTodos = function(todos, filters) {
 
 }
 
-const generateTodoDOM = function(todo) {
+const generateTodoDOM = (todo) => {
     const todoEl = document.createElement('div')
     const checkbox = document.createElement('input')
     const todoText = document.createElement('span')
@@ -40,6 +41,12 @@ const generateTodoDOM = function(todo) {
         renderTodos(todos, filters)
     })
     checkbox.setAttribute('type', 'checkbox')
+    checkbox.checked = todo.completed
+    checkbox.addEventListener('change', function() {
+        toggleTodo(todo.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
     todoText.textContent = todo.text
     todoEl.appendChild(checkbox)
     todoEl.appendChild(todoText)
@@ -47,13 +54,19 @@ const generateTodoDOM = function(todo) {
     return todoEl
 }
 
-const generateSummaryDOM = function(todos) {
+const generateSummaryDOM = (todos) => {
     const h2 = document.createElement('h2')
     h2.textContent = `You have ${todos.length} todos left`
     todosEl.appendChild(h2)
     return h2
 }
 
-const removeTodo = function(id) {
+const removeTodo = (id) => {
     todos = todos.filter((todo) => todo.id !== id)
+}
+
+const toggleTodo = function(id) {
+    const todo = todos.find((todo) => todo.id === id)
+    if(todo) todo.completed = !todo.completed
+    console.log(todo)
 }

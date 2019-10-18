@@ -12,13 +12,13 @@ const todosEl = document.querySelector('#todos')
 
 renderTodos(todos, filters)
 
-inputFilter.addEventListener('input', function(e) {
+inputFilter.addEventListener('input', (e) => {
     filters.searchText = e.target.value.toLowerCase()
     renderTodos(todos, filters)
 })
 
 
-button.addEventListener('submit', function(e){
+button.addEventListener('submit', (e) => {
     e.preventDefault()
     todos.push({
         id: uuidv4(),
@@ -30,7 +30,7 @@ button.addEventListener('submit', function(e){
     renderTodos(todos, filters)
 })
 
-document.querySelector('#hideCompleted').addEventListener('change', function(e) {
+document.querySelector('#hideCompleted').addEventListener('change', (e) => {
     filters.hideCompleted = e.target.checked
     renderTodos(todos, filters) 
 })

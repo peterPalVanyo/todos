@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <title>Todo</title>
+    <link rel="stylesheet" href="/styles/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Todos</title>
-</head>
-<body>
-    <h1>Todos</h1>
-    <form id="addTodo">
-        <input type="text" placeholder="New Todo" name="text">
-        <button>Add Todo</button>
-    </form>
-    <input type="text" id="inputFilter" placeholder="Search Todo">
-    <label>
-        <input type="checkbox" name="" id="hideCompleted">Hide Completed
-    </label>
-    <div id="todos"></div>
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <h1 class="header__title">Todo app</h1>
+        <h2 class="header__subtitle">Collect your todos</h2>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="actions__container">
+        <input
+          type="text"
+          id="inputFilter"
+          placeholder="Search Todo"
+          class="input"
+        />
+        <label class="checkbox">
+          <input type="checkbox" name="" id="hideCompleted" />Hide Completed
+        </label>
+      </div>
+    </div>
+    
+    <div class="container">
+        <div id="todos"></div>
+        <form id="addTodo">
+          <input type="text" placeholder="New Todo" name="text" class="input"/>
+          <button class="button">Add Todo</button>
+        </form>
+    </div>
 
 
-
-    <script type="text/javascript" src="uuid.js"></script>
-    <script type="text/javascript" src="functions.js"></script>
-    <script type="text/javascript" src="todo.js"></script>
-</body>
+    <script type="text/javascript" src="scripts/uuid.js"></script>
+    <script type="text/javascript" src="scripts/functions.js"></script>
+    <script type="text/javascript" src="scripts/todo.js"></script>
+  </body>
 </html>

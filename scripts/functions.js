@@ -19,22 +19,35 @@ const renderTodos = (todos, filters) => {
         const hideMatched = !filters.hideCompleted || !todo.completed
         return searchMatched && hideMatched
     })
-    filteredTodos.forEach((todo) => {
-        todosEl.appendChild(generateTodoDOM(todo)) 
-    })
 
     const incompleteTodos = filteredTodos.filter((todo) => !todo.completed)
-    
     todosEl.appendChild(generateSummaryDOM(incompleteTodos))
+
+    if (filteredTodos.length) {
+        filteredTodos.forEach((todo) => {
+            todosEl.appendChild(generateTodoDOM(todo)) 
+        })
+    } else {
+        const emptyEl = document.createElement('p')
+        emptyEl.classList.add('empty-message')
+        emptyEl.textContent = "No todos to show"
+        todosEl.appendChild(emptyEl)
+    }
+
 
 }
 
 const generateTodoDOM = (todo) => {
-    const todoEl = document.createElement('div')
+    const todoEl = document.createElement('label')
+    const containerEl = document.createElement('div')
     const checkbox = document.createElement('input')
     const todoText = document.createElement('span')
     const removeButton = document.createElement('button')
-    removeButton.textContent = 'x'
+    todoEl.classList.add('list-item')
+    containerEl.classList.add('list-item__container')
+    todoEl.appendChild(containerEl)
+    removeButton.textContent = 'remove'
+    removeButton.classList.add('button', 'button--text')
     removeButton.addEventListener('click', function() {
         removeTodo(todo.id)
         saveTodos(todos)
@@ -48,15 +61,17 @@ const generateTodoDOM = (todo) => {
         renderTodos(todos, filters)
     })
     todoText.textContent = todo.text
-    todoEl.appendChild(checkbox)
-    todoEl.appendChild(todoText)
+    containerEl.appendChild(checkbox)
+    containerEl.appendChild(todoText)
     todoEl.appendChild(removeButton)
     return todoEl
 }
 
 const generateSummaryDOM = (todos) => {
     const h2 = document.createElement('h2')
-    h2.textContent = `You have ${todos.length} todos left`
+    const plural = todos.length > 1 ? "todos" : "todo"
+    h2.classList.add('list-title')
+    h2.textContent = `You have ${todos.length} ${plural} left`
     todosEl.appendChild(h2)
     return h2
 }

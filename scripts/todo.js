@@ -20,11 +20,14 @@ inputFilter.addEventListener('input', (e) => {
 
 button.addEventListener('submit', (e) => {
     e.preventDefault()
-    todos.push({
-        id: uuidv4(),
-        text: e.target.elements.text.value,
-        completed: false
-    })
+    const newTodoText = e.target.elements.text.value.trim()
+    if (newTodoText.length) {
+        todos.push({
+            id: uuidv4(),
+            text: newTodoText,
+            completed: false
+        })
+    }
     saveTodos(todos)
     e.target.elements.text.value = ''
     renderTodos(todos, filters)
